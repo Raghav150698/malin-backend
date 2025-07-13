@@ -1,13 +1,18 @@
+# src/ai_services/gpt_service.py
 
-import openai
+from openai import OpenAI
 import os
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+# Create a client using your API key from environment variable
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+# Function to get GPT-4 response
 async def get_gpt_response(question: str) -> str:
-    response = openai.ChatCompletion.create(
+    chat_completion = client.chat.completions.create(
         model="gpt-4",
-        messages=[{"role": "user", "content": question}],
+        messages=[
+            {"role": "user", "content": question}
+        ],
         temperature=0.7
     )
-    return response.choices[0].message['content']
+    return chat_completion.choices[0].message.content

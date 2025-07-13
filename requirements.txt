@@ -3,5 +3,5 @@ fastapi
 uvicorn
 httpx
 google-generativeai
-openai
+openai>=1.0.0,<2.0.0
 pydantic
